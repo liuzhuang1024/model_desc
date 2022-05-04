@@ -3,7 +3,7 @@
 As illustrated in Figure, our pipeline mainly consists of a image preocess module, Restormer<sup>[4]</sup> and a NIMA<sup>[5]</sup> module. In the inference stage, we randomly select a total of 20 batches of images from the 100 low-resolution images and each batch contains of 20 images. 
 
 ### Preprocessing
-A sliding window processing<sup>[10]</sup> and a rotation processing are done on the randomly selected images. For each batch of images, we use sliding windows of size 5, 10, and 15 for processing
+A sliding window processing<sup>[10]</sup> and a rotation processing are done on each batch images. The sliding window size is 128 x 128 and the stride is 32. The rotaion angle are set to 0<sup>o</sup>, 90<sup>o</sup>, 180<sup>o</sup> and 270<sup>o</sup>, respectively.
 
 ### Inference
 Restormer takes the preocessed images as input and output a high resolution image. Since each batch of images is processed 4 times, a total of 4 high-resolution images are obtained. Therefore, a total of 80 high-resolution images are obtained after 20 rounds of inference. The average of these 80 images is used as the reconstructed image. Drawing on the residual design, we used NIMA<sup>[5]</sup>, a non-reference image quality assessment method, to score the input information and weight it with the reconstructed image and the weighted reconstructed image is used as the final output.

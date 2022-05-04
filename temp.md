@@ -29,14 +29,28 @@ kwargs = dict(
 
 - text data
     + synthetic data by program
-    
+
     ![](example/1.jpg)
 
 
 ## External Data
 We didn't use external data 
 
+## Model
+Our main method consists of transformer and image quality assessment(IQA):
++ overall pipeline：
+![](model_desc.jpg)
++ Restormer<sup>[4]</sup>： This is an image restoration paper at CVPR2022 that achieves SOTA in four tasks:  dahazing, deraining, super resolution, and deblurring. As it is described in this paper, it uses a progressive model structure based on the transformer.  We adopted the restormer infrastructure and finetuned our model. We modified the input of the model to be multiple images. In addition, we analyze the atmospheric turbulence mitigation task. The frames are highly related in terms of space.
+We use a strategy of randomly selecting 20 frames from 100 frames and feeding them into the network to extract the spatial relationships between frames. This approach has been shown to be effective in a large number of experiments.
++ NIMA<sup>[5]</sup>:  Image quality assessment (IQA) has an important position in image restoration. The goodness of the model can be evaluated by reference and non-reference image assessment methods. We used NIMA, a non-reference image quality assessment method proposed by Google in 2018, to score the input information and weight it with the reconstructed image. Compared to our manual setting of weights, the recognition accuracy improves from 89.6 to 94 and the psnr improves from 22.3 to 24.8.
++ Training process: We used the training strategy of *Restormer*, using the adam optimizer, and the learning rate was changed from 1e-4 to 1e-10 by CosineAnnealingWarmRestarts of Pytorch.
++ Training data: We design two parts of experimental data, the first part of the data contains a large number of text images and a small amount of image data, and the second part contains the same proportion of text images and scene images. In the training, we first train the first part of the data for about a week, and then send the second part of the data to the model on the basis of the first part of the data. This balances the performance of our method on textual and scene data.
++ Loss function: We have designed a large number of loss functions, such as Fourier loss, perceptual loss, etc., but most of them cannot guide the model to obtain a better recovery effect. In the final reference to the restormer, we used L1 loss, but additionally used ssim loss as an auxiliary loss.
++ On the noise: We use the synthesizer paper<sup>[6, 7, 8]</sup> and cycleISP<sup>[9]</sup> to think about the overall image imaging process, and find that it contains more than just atmospheric turbulence. Without considering other noises, such as Gaussian noise, Gaussian blur and other noises, it is difficult to obtain good results by directly synthesizing data for training. In the end we added other noises, such as Gaussian noise, Gaussian blur, lighting and etc., into the synthesis process, and we got a better result compared to just atmospheric turbulence noise.
++ Sliding window strategy<sup>[10]</sup>: We refer to and improve the windowing strategy, combine the information of 100 frames and conduct inference, and finally integrate it, which not only uses the spatial information but also all frame information. have been used. We have higher results in both recognition accuracy and PSNR.
 
+## Download ours data
+- We are preparing to upload the link, please contact us in time if necessary.
 
 ## Reference,
 [1] [A Large Chinese Text Dataset in the Wild](https://ctwdataset.github.io/)

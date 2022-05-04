@@ -2,10 +2,10 @@
 
 As illustrated in Figure, our pipeline mainly consists of a image preocess module, Restormer<sup>[4]</sup> and a NIMA<sup>[5]</sup> module. In the inference stage, we randomly select 20 images from the 100 low-resolution images each time for a total of 20 times. 
 
-### Processing
+#### Processing
 A sliding window processing <sup>[10]</sup> and a rotation processing are done on the randomly selected images. 
 
-### Inference
+#### Inference
 Restormer takes the preocessed images as input and output a high resolution image. 
 
 ## Ground Truth Data

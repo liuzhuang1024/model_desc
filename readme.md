@@ -1,6 +1,6 @@
 ## Data source
 - scene data
-    + $CTW^{[1]}$
+    + CTW<sup>[1]</sup>
     + $DIV2K^{[2]}$
     + $Total-text^{[3]}$
 

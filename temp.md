@@ -1,5 +1,5 @@
 ## Methodology
-
+![img](model_desc.jpg)
 As illustrated in Figure, our pipeline mainly consists of a image preocess module, Restormer<sup>[4]</sup> and a NIMA<sup>[5]</sup> module. In the inference stage, we randomly select a total of 20 batches of images from the 100 low-resolution images and each batch contains of 20 images. 
 
 ### Preprocessing
@@ -28,7 +28,8 @@ kwargs = dict(
     + Total-text<sup>[3]</sup>
 
 - text data
-    + 
+    + synthetic data by program
+    ![](example/1.jpg)
 
 
 ## External Data

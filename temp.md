@@ -29,8 +29,10 @@ kwargs = dict(
 
 - text data
     + synthetic data by program
+    
+    <img height=150 src="example/1.jpg"/>
+    <img height=150 src="example/2.jpg"/>
 
-    ![](example/1.jpg)
 
 
 ## External Data

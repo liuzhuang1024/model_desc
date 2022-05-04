@@ -29,19 +29,19 @@ kwargs = dict(
 
 - text data
     + synthetic data by program
-    
+
     <img height=150 src="example/1.jpg"/>
     <img height=150 src="example/2.jpg"/>
 
 
 
-## External Data
-We didn't use external data 
+- External Data
+    - We didn't use external data 
+- Download ours data
+    - We are preparing to upload the link, please contact us in time if necessary.
 
 ## Model
 Our main method consists of transformer and image quality assessment(IQA):
-+ overall pipeline：
-![](model_desc.jpg)
 + Restormer<sup>[4]</sup>： This is an image restoration paper at CVPR2022 that achieves SOTA in four tasks:  dahazing, deraining, super resolution, and deblurring. As it is described in this paper, it uses a progressive model structure based on the transformer.  We adopted the restormer infrastructure and finetuned our model. We modified the input of the model to be multiple images. In addition, we analyze the atmospheric turbulence mitigation task. The frames are highly related in terms of space.
 We use a strategy of randomly selecting 20 frames from 100 frames and feeding them into the network to extract the spatial relationships between frames. This approach has been shown to be effective in a large number of experiments.
 + NIMA<sup>[5]</sup>:  Image quality assessment (IQA) has an important position in image restoration. The goodness of the model can be evaluated by reference and non-reference image assessment methods. We used NIMA, a non-reference image quality assessment method proposed by Google in 2018, to score the input information and weight it with the reconstructed image. Compared to our manual setting of weights, the recognition accuracy improves from 89.6 to 94 and the psnr improves from 22.3 to 24.8.
@@ -51,8 +51,6 @@ We use a strategy of randomly selecting 20 frames from 100 frames and feeding th
 + On the noise: We use the synthesizer paper<sup>[6, 7, 8]</sup> and cycleISP<sup>[9]</sup> to think about the overall image imaging process, and find that it contains more than just atmospheric turbulence. Without considering other noises, such as Gaussian noise, Gaussian blur and other noises, it is difficult to obtain good results by directly synthesizing data for training. In the end we added other noises, such as Gaussian noise, Gaussian blur, lighting and etc., into the synthesis process, and we got a better result compared to just atmospheric turbulence noise.
 + Sliding window strategy<sup>[10]</sup>: We refer to and improve the windowing strategy, combine the information of 100 frames and conduct inference, and finally integrate it, which not only uses the spatial information but also all frame information. have been used. We have higher results in both recognition accuracy and PSNR.
 
-## Download ours data
-- We are preparing to upload the link, please contact us in time if necessary.
 
 ## Reference,
 [1] [A Large Chinese Text Dataset in the Wild](https://ctwdataset.github.io/)

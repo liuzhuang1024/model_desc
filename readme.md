@@ -23,8 +23,8 @@ kwargs = dict(
 
 ## Model
 Our main method consists of transformer and image quality assessment(IQA):
-+ Overall pipeline：
-![](model_v2.jpeg)
++ overall pipeline：
+![](model_desc.jpg)
 + Restormer<sup>[4]</sup>：这是CVPR2022上的一篇图像修复文章，它在去雨、去雾、超分和去模糊四个方向上都取得了SOTA的成绩。正如它本文描述的一样，它采用了基于transformer的渐进式模型结构。我们采用了restormer的基础架构，并在上面微调了自己模型，但是模型模型仅仅是在单张图像上进行修复任务。我们修改了模型的输入和输出为多张图片的输入单张图像输出的模块。另外，我们对大气扰动任务进行分析，获取的图像中，帧与帧之间在时序上关联并不是很密切，但是在空间上的关系确实很大，我们采用从100帧中随机抽取20帧送入网络的策略从而提取帧之间的空间关系。从大量的实验中证明这种做法是有效的。
 + Restormer<sup>[4]</sup>： This is an image restoration paper at CVPR2022 that achieves SOTA in four tasks:  dahazing, deraining, super resolution, and deblurring. As it is described in this paper, it uses a progressive model structure based on the transformer.  We adopted the restormer infrastructure and finetuned our model. We modified the input of the model to be multiple images. In addition, we analyze the atmospheric turbulence mitigation task. The frames are not very closely related to each other in terms of timing, but they are highly related in terms of space. We use a strategy of randomly selecting 20 frames from 100 frames and feeding them into the network to extract the spatial relationships between frames. This approach has been shown to be effective in a large number of experiments.
 + NIMA<sup>[5]</sup>：图像质量评估（IQA）在图像修复中有着重要的地位，通过有参考和无参考的图像评估方法，我们对于模型的好坏会有大致的判断，google在2018年提出了NIMA一种无参考图像质量评估方法。我们采用NIMA对输入信息进行打分，并和识别结果进行加权，这相对于我们手动的设置权重获取了更高的精度，识别精度和PSNR也从89.6和22.3到94和24.8.

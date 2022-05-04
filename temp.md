@@ -28,8 +28,7 @@ kwargs = dict(
     + Total-text<sup>[3]</sup>
 
 - text data
-    + official simulator generated images
-    + official released images
+    + 
 
 
 ## External Data

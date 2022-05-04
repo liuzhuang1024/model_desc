@@ -29,11 +29,10 @@ kwargs = dict(
 
 - text data
     + synthetic data by program
+        + We captured several images using mobile phone, and rendered different sizes, thicknesses, and types of fonts on the images.
 
     <img height=150 src="example/1.jpg"/>
     <img height=150 src="example/2.jpg"/>
-
-
 
 - External Data
     - We didn't use external data 
